@@ -1,10 +1,10 @@
 const peerConnections = {};
 const config = {
   iceServers: [
-    { 
+    {
       "urls": "stun:stun.l.google.com:19302",
     },
-    // { 
+    // {
     //   "urls": "turn:TURN_IP?transport=tcp",
     //   "username": "TURN_USERNAME",
     //   "credential": "TURN_CREDENTIALS"
@@ -12,7 +12,11 @@ const config = {
   ]
 };
 
-const socket = io.connect(window.location.origin);
+const holo = 'ws://52.168.37.7:3001/?EIO=3&transport=websocket';
+// const holo = 'http://ponto-websocket.eastus.cloudapp.azure.com/';
+
+const socket = io.connect(holo);
+// const socket = io.connect(window.location.origin);
 
 socket.on("answer", (id, description) => {
   peerConnections[id].setRemoteDescription(description);

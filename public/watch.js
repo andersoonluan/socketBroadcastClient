@@ -1,10 +1,10 @@
 let peerConnection;
 const config = {
   iceServers: [
-      { 
+      {
         "urls": "stun:stun.l.google.com:19302",
       },
-      // { 
+      // {
       //   "urls": "turn:TURN_IP?transport=tcp",
       //   "username": "TURN_USERNAME",
       //   "credential": "TURN_CREDENTIALS"
@@ -12,11 +12,15 @@ const config = {
   ]
 };
 
-const socket = io.connect(window.location.origin);
+const holo = 'ws://52.168.37.7:3001/?EIO=3&transport=websocket';
+
+const socket = io.connect(holo);
+// const socket = io.connect(window.location.origin);
+
 const video = document.querySelector("video");
 const enableAudioButton = document.querySelector("#enable-audio");
 
-enableAudioButton.addEventListener("click", enableAudio)
+enableAudioButton.addEventListener("click", enableAudio);
 
 socket.on("offer", (id, description) => {
   peerConnection = new RTCPeerConnection(config);
@@ -58,6 +62,6 @@ window.onunload = window.onbeforeunload = () => {
 };
 
 function enableAudio() {
-  console.log("Enabling audio")
+  console.log("Enabling audio");
   video.muted = false;
 }
